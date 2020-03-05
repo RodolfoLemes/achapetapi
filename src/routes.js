@@ -1,11 +1,12 @@
 const express = require('express')
-
+const DataController = require('./controllers/DataController')
 const routes = express.Router()
 
 routes.get('/', (req, res) => {
     res.send('Funcionando')
 })
 
-//Rotas para envio de coordenadas
+//Rotas para recebimento de coordenadas
+routes.post('/coords', DataController.postData)
 
 module.exports = routes
