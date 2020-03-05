@@ -8,9 +8,9 @@
   "devDependencies": {
     "nodemon": "^2.0.2"
   },
-  "name": "api",
+  "name": "achapetapi",
   "version": "1.0.0",
-  "description": "api tau",
+  "description": "api",
   "main": "src/index.js",
   "license": "MIT",
   "scripts": {

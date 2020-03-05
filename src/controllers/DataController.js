@@ -3,7 +3,7 @@ const Device = require('../models/Device')
 
 module.exports = {
     async postData (req, res) {
-        const { coords, imei } = req.query
+        /* const { coords, imei } = req.query
 
         const device = await Device.find({ imei })
 
@@ -11,7 +11,9 @@ module.exports = {
             coords, 
             device: device._id
         })
-
-        res.send(true)
+ */     const { params, query } = req
+        console.log(params)
+        console.log(query)
+        res.send({ params, query })
     },
 }
