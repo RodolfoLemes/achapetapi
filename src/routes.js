@@ -8,5 +8,6 @@ routes.get('/', (req, res) => {
 
 //Rotas para recebimento de coordenadas
 routes.post('/coords', DataController.postData)
+routes.get('/coords', DataController.testData)
 
 module.exports = routes

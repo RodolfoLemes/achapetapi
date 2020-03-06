@@ -16,4 +16,11 @@ module.exports = {
         console.log(query)
         res.send({ params, query })
     },
+
+    async testData (req, res) {
+        const { params, query } = req
+        console.log(params)
+        console.log(query)
+        res.send({ params, query })
+    }
 }
