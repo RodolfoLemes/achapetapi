@@ -12,6 +12,7 @@ module.exports = {
             device: device._id
         })
  */     const { params, query } = req
+        console.log(req)
         console.log(params)
         console.log(query)
         res.send({ params, query })
@@ -19,6 +20,7 @@ module.exports = {
 
     async testData (req, res) {
         const { params, query } = req
+        console.log(req)
         console.log(params)
         console.log(query)
         res.send({ params, query })
