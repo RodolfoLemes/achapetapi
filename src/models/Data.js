@@ -13,9 +13,11 @@ const DataSchema = new mongoose.Schema({
         required: true
     },
 
+    isWifi: Boolean,
+
     createAt: {
         type: Date,
-        default: Date.now
+        default: new Date()
     }
 })
 

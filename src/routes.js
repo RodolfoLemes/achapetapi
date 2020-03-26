@@ -7,7 +7,7 @@ routes.get('/', (req, res) => {
 })
 
 //Rotas para recebimento de coordenadas
-routes.post('/coords', DataController.postData)
-routes.get('/coords', DataController.testData)
+routes.get('/coordsWIFI', DataController.dataWifi)
+routes.get('/coordsGPRS', DataController.dataGPRS)
 
 module.exports = routes

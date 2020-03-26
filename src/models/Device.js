@@ -15,6 +15,10 @@ const DeviceSchema = new mongoose.Schema({
         type: String
     },
 
+    battery: {
+        type: String
+    },
+
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
