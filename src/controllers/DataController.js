@@ -82,7 +82,7 @@ module.exports = {
 
         const datas = await Data.find({ device,  createAt: { $gte: timestamp }})
 
-        res.send( { datas } )
+        res.send({ datas })
     }
 
 }

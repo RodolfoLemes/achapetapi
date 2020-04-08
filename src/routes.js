@@ -12,7 +12,7 @@ routes.get('/', (req, res) => {
 //Rotas para recebimento de coordenadas
 routes.get('/coordsWIFI', DataController.dataWifi)
 routes.get('/coordsGPRS', DataController.dataGPRS)
-routes.post('/coords', DataController.getDatas)
+routes.get('/coords', DataController.getDatas)
 
 //Rotas para Usuarios
 routes.post('/user', UserController.create)
