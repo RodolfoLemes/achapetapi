@@ -18,6 +18,10 @@ module.exports = {
                 name,
                 imei
             })
+
+            user.devices.push(device._id)
+            await user.save()
+
             res.send({ sucess: true, device })
         } else {
             res.send({ sucess: false })

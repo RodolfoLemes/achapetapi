@@ -10,6 +10,11 @@ const UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Device',
     }],
+
+    createAt: {
+        type: Date,
+        default: new Date()
+    }
 })
 
 module.exports = mongoose.model('User', UserSchema)
