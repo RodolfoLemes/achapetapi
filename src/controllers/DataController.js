@@ -62,7 +62,7 @@ module.exports = {
         const device = await Device.findOneAndUpdate({ imei: id }, { battery })
 
         for(let coords of coordsArray) {
-            await Data.create({
+            let data = await Data.create({
                 coords,
                 device: device._id,
                 isWifi
