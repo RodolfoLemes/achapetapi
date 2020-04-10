@@ -77,12 +77,18 @@ module.exports = {
     async getDatas (req, res) {
         const { device, time = 1 } = req.query
 
-        let timeAgo = time * 3600000
-        let timestamp = new Date(new Date() - timeAgo)
+        if(time == 0) {
+            const datas = await Data.find({ device }).sort({ createAt: -1 })
 
-        const datas = await Data.find({ device,  createAt: { $gte: timestamp }})
-
-        res.send({ datas })
+            res.send({ datas })
+        } else {
+            let timeAgo = time * 3600000
+            let timestamp = new Date(new Date() - timeAgo)
+    
+            const datas = await Data.find({ device,  createAt: { $gte: timestamp }}).sort({ createAt: -1 })
+    
+            res.send({ datas })
+        }
     }
 
 }
