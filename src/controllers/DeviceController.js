@@ -8,9 +8,12 @@ function isIMEIvalid(imei) {
 
 module.exports = {
     async create (req, res) {
-        const { imei, name, userId } = req.body
+        const { imei, name } = req.body
 
-        const user = await User.findById(userId)
+        const user = await User.findById(req.userId)
+
+        if(await Device.findOne({ imei }))
+            return res.send({ sucess: false, error: "Device already exist" })
 
         if(isIMEIvalid(imei)) {
             const device = await Device.create({
@@ -26,5 +29,5 @@ module.exports = {
         } else {
             res.send({ sucess: false })
         }
-    }
+    },
 }

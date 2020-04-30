@@ -1,7 +1,10 @@
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const routes = require('./routes')
+const routesMain = require('./routes/main.routes')
+const routesAuth = require('./routes/auth.routes')
+const routesDevice = require('./routes/device.routes')
+
 const app = express()
 require('dotenv').config()
 
@@ -11,6 +14,9 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.disable('etag');
-app.use(routes)
+app.use(routesAuth)
+app.use(routesMain)
+app.use(routesDevice)
+
 
 app.listen(process.env.PORT || 3333)
