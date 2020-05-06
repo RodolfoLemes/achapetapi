@@ -17,7 +17,7 @@ module.exports = {
 
         if(isIMEIvalid(imei)) {
             const device = await Device.create({
-                user: userId,
+                user: req.userId,
                 name,
                 imei
             })
