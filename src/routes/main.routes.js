@@ -17,5 +17,6 @@ routes.post('/user', UserController.create)
 
 //Rotas para Devices
 routes.post('/device', DeviceController.create)
+//routes.get('/device', DeviceController.getDevices)
 
 module.exports = routes

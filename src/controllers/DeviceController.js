@@ -25,9 +25,23 @@ module.exports = {
             user.devices.push(device._id)
             await user.save()
 
-            res.send({ sucess: true, device })
+            const devices = await Device.find()
+
+            res.send({ sucess: true, devices })
         } else {
-            res.send({ sucess: false })
+            res.send({ sucess: false, error: 'Invalid IMEI' })
         }
-    }
+    },
+
+    /* async getDevices(req, res) {
+        const user = await User.findById(req.userId)
+
+        if(!user) {
+            res.send({ error: 'error' })
+        } else {
+            const devices = await Device.findOne({ user: req.userId })
+
+            res.send({ devices })
+        }
+    } */
 }
