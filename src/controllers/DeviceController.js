@@ -1,8 +1,9 @@
 const Device = require('../models/Device')
 const User = require('../models/User')
 
-function isIMEIvalid(imei) {
+function isIMEIvalid(mac) {
     // Função que verifica se esse IMEI é verdadeiro
+    // return /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/.test(mac)
     return true
 }
 
@@ -25,23 +26,29 @@ module.exports = {
             user.devices.push(device._id)
             await user.save()
 
-            const devices = await Device.find()
+            // Essa requisição retorna todos os devices
+            const devices = await Device.find({ user: req.userId }).select('-data')
 
             res.send({ sucess: true, devices })
         } else {
-            res.send({ sucess: false, error: 'Invalid IMEI' })
+            res.send({ sucess: false, error: 'Invalid mac' })
         }
     },
 
-    /* async getDevices(req, res) {
-        const user = await User.findById(req.userId)
+    async patch(req, res) {
+        const { petName, emergencialPhone, cep, phone } = req.body
+        const { deviceId } = req.params
 
-        if(!user) {
-            res.send({ error: 'error' })
-        } else {
-            const devices = await Device.findOne({ user: req.userId })
+        const device = await Device.findOneAndUpdate({ _id: deviceId }, { 
+            name: petName,
+            emergencialPhone,
+            cep
+        }, { new: true }).select('-data')
 
-            res.send({ devices })
-        }
-    } */
+        const user = await User.findOneAndUpdate({ _id: req.userId }, {
+            phone
+        }, { new: user }).select('phone')
+
+        return res.send({ device, user })
+    }
 }

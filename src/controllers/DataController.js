@@ -30,6 +30,12 @@ module.exports = {
         }
         await device.save()
 
+        //  Socket.IO
+        const userSocket = req.connectedUsers[device.user]
+        console.log(userSocket)
+        if(userSocket)
+            req.io.to(userSocket).emit('data', data)
+
         res.status(200).send('Sucess')
     },
 
@@ -71,6 +77,10 @@ module.exports = {
         }
         await device.save()
 
+        //  Socket.IO
+        const userSocket = req.connectedUsers[device.user]
+        req.io.to(userSocket).emit('data', data)
+
         res.status(200).send('Sucess')
     },
 
@@ -89,6 +99,31 @@ module.exports = {
     
             res.send({ datas })
         }
-    }
+    },
+
+    /* async getNeighborhoodDatas(req, res) { // Terminar isso
+        const { device } = req.query
+
+        const { coordCentral, radius } = await Device.findById({ device }).select('geofencing')
+
+        let timeAgo = 3600000
+        let timestamp = new Date(new Date() - timeAgo)
+        const firstDatasFriendly = await Data.find({ createAt: { $gte: timestamp }}).sort({ createAt: -1 })
+
+        let neighbors = []
+        firstDatasFriendly.map(element => {
+            let distance = Math.sqrt(
+                Math.pow(coordCentralLat + element.coords.lat, 2) +
+                Math.pow(coordCentralLong + element.coords.lon, 2)
+            )
+
+            if(distance <= radius) {
+                neighbors.push({
+                    device: element.device,
+                    coords: element.coords
+                })
+            }
+        })
+    } */
 
 }

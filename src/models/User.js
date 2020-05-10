@@ -16,6 +16,10 @@ const UserSchema = new mongoose.Schema({
         ref: 'Device',
     }],
 
+    phone: {
+        type: String
+    },
+
     createAt: {
         type: Date,
         default: new Date()

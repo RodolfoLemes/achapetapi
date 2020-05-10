@@ -12,10 +12,26 @@ const DeviceSchema = new mongoose.Schema({
     }, 
 
     name: {
-        type: String
+        type: String,
+        required: true
     },
 
     battery: {
+        type: String,
+        default: '0'
+    },
+
+    geofencing: {
+        coordCentralLat: Number,
+        coordCentralLon: Number,
+        radius: Number
+    },
+
+    cep: {
+        type: String
+    },
+
+    emergencialPhone: {
         type: String
     },
 
