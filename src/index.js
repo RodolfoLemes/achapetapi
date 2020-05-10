@@ -31,9 +31,10 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.disable('etag');
+app.use(routesDevice)
 app.use(routesAuth)
 app.use(routesMain)
-app.use(routesDevice)
+
 
 
 app.listen(process.env.PORT || 3333)
