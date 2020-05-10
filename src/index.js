@@ -14,7 +14,7 @@ const routesDevice = require('./routes/device.routes')
 const connectedUsers = {}
 io.on('connection', socket => {
     const { user } = socket.handshake.query
-
+    console.log(user)
     connectedUsers[user] = socket.id
     console.log(connectedUsers)
 })

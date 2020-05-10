@@ -31,6 +31,7 @@ module.exports = {
         await device.save()
 
         //  Socket.IO
+        console.log(connectedUsers)
         const userSocket = req.connectedUsers[device.user]
         console.log(userSocket)
         if(userSocket)
