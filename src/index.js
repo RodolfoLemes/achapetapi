@@ -19,6 +19,7 @@ io.on('connection', socket => {
     console.log(connectedUsers)
 })
 
+
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, /* useFindAndModify: false, */ useUnifiedTopology: true })
 
 app.use((req, res, next) => { // Isso é um middleware que faz com que seja executada antes das proprias rotas
@@ -35,6 +36,5 @@ app.use(routesDevice)
 app.use(routesAuth)
 app.use(routesMain)
 
-
-
-app.listen(process.env.PORT || 8080)
+server.listen(process.env.PORT || 8080)
+app.listen(process.env.PORT || 3333)
