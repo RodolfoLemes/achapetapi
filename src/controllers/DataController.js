@@ -21,7 +21,7 @@ module.exports = {
         const device = await Device.findOneAndUpdate({ imei: id }, { battery })
 
         for(let coords of coordsArray) {
-            const data = await Data.create({
+            var data = await Data.create({
                 coords,
                 device: device._id,
                 isWifi
@@ -31,7 +31,6 @@ module.exports = {
         await device.save()
 
         //  Socket.IO
-        console.log(connectedUsers)
         const userSocket = req.connectedUsers[device.user]
         console.log(userSocket)
         if(userSocket)
@@ -69,7 +68,7 @@ module.exports = {
         const device = await Device.findOneAndUpdate({ imei: id }, { battery })
 
         for(let coords of coordsArray) {
-            let data = await Data.create({
+            var data = await Data.create({
                 coords,
                 device: device._id,
                 isWifi
