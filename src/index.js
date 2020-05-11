@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 require('dotenv').config()
 
 const app = express()
-const server = require('http').createServer(app)
+const server = require('http').createServer(app).listen(process.env.PORT || 3333)
 const io = require('socket.io')(server)
 
 const routesMain = require('./routes/main.routes')
@@ -36,5 +36,4 @@ app.use(routesDevice)
 app.use(routesAuth)
 app.use(routesMain)
 
-server.listen(process.env.PORT || 8080)
-app.listen(process.env.PORT || 3333)
+//app.listen(process.env.PORT || 3333)
