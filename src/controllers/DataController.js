@@ -90,15 +90,17 @@ module.exports = {
         if(time == 0) {
             const datas = await Data.find({ device }).sort({ createAt: -1 })
 
-            res.send({ datas })
+            const { geofencing } = await Device.findById(device).select('geofencing')
+
+            res.send({ datas, geofencing })
         } else {
             let timeAgo = time * 3600000
             let timestamp = new Date(new Date() - timeAgo)
     
             const datas = await Data.find({ device,  createAt: { $gte: timestamp }}).sort({ createAt: -1 })
             
-            const geofencing = await Device.findById(device).select('geofencing')
-            console.log(geofencing)
+            const { geofencing } = await Device.findById(device).select('geofencing')
+
             res.send({ datas, geofencing })
         }
     },
