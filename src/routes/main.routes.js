@@ -18,5 +18,6 @@ routes.post('/user', UserController.create)
 //Rotas para Devices
 routes.post('/device', DeviceController.create)
 routes.patch('/device/:deviceId', DeviceController.patch)
+routes.post('/device/:deviceId/geofencing', DeviceController.geofencing)
 
 module.exports = routes

@@ -50,5 +50,22 @@ module.exports = {
         }, { new: user }).select('phone')
 
         return res.send({ device, user })
+    },
+
+    async geofencing(req, res) {
+        const { latitude, longitude, radius } = req.body
+        const { deviceId } = req.params
+
+        const device = await Device.findById(deviceId).select('-data')
+
+        device.geofencing = {
+            coordCentralLat: latitude,
+            coordCentralLon: longitude,
+            radius: radius
+        }
+
+        await device.save()
+
+        return res.send({ sucess: true })
     }
 }
