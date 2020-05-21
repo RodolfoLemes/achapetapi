@@ -66,6 +66,14 @@ module.exports = {
 
         await device.save()
 
-        return res.send({ sucess: true })
+        return res.send({ sucess: true, device })
+    },
+
+    async getInfo(req, res) {
+        const { deviceId } = req.params
+
+        const device = await Device.findById(deviceId).select('-data')
+
+        return res.send(device)
     }
 }

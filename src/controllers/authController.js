@@ -12,7 +12,7 @@ module.exports = {
     async autenticate(req, res) {
         try {
             const { email, name } = req.body
-            const user = await User.findOne({ email }).populate('devices', 'imei name battery' )
+            const user = await User.findOne({ email }).populate('devices', '-data' )
 
             if(!user) {
                 const newUser = await User.create({ email, name })
