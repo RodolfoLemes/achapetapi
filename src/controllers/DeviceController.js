@@ -47,7 +47,7 @@ module.exports = {
 
         const user = await User.findOneAndUpdate({ _id: req.userId }, {
             phone
-        }, { new: true }).select('phone')
+        }, { new: true }).select('-devices')
 
         return res.send({ device, user })
     },

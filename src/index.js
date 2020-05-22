@@ -20,7 +20,7 @@ io.on('connection', socket => {
 })
 
 
-mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, /* useFindAndModify: false, */ useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true })
 
 app.use((req, res, next) => { // Isso é um middleware que faz com que seja executada antes das proprias rotas
     req.io = io
