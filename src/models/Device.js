@@ -11,6 +11,11 @@ const DeviceSchema = new mongoose.Schema({
         required: true
     }, 
 
+    walkMode: {
+        type: Boolean,
+        default: false,
+    },
+
     name: {
         type: String,
         required: true
@@ -18,7 +23,7 @@ const DeviceSchema = new mongoose.Schema({
 
     battery: {
         type: String,
-        default: '0'
+        default: 'Ruim'
     },
 
     geofencing: {

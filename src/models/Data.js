@@ -15,6 +15,8 @@ const DataSchema = new mongoose.Schema({
 
     isWifi: Boolean,
 
+    isGeofencing: Boolean,
+    
     createAt: {
         type: Date,
         default: new Date()
