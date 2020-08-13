@@ -17,9 +17,14 @@ module.exports = {
         }
 
         let data = await Data.create({
+            coords: {
+                lat: device.geofencing.coordCentralLat,
+                lon: device.geofencing.coordCentralLon,
+                timestamp: new Date()
+            },
             device: device._id,
             isWifi: true,
-            coords: null
+            isGeofencing: true
         })
 
         device.data.push(data)
