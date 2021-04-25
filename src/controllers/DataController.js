@@ -1,35 +1,35 @@
-const Data = require('../models/Data')
-const Device = require('../models/Device')
+const Data = require('../models/Data');
+const Device = require('../models/Device');
 
 module.exports = {
-    async dataWifi (req, res) {
-        const { id, battery } = req.query
+  async dataWifi(req, res) {
+    const { id, battery } = req.query;
 
-        const device = await Device.findOneAndUpdate({ imei: id }, { battery })
+    const device = await Device.findOneAndUpdate({ imei: id }, { battery });
 
-        const json = {
-            coords: {
-                lat: device.geofencing.coordCentralLat,
-                lng: device.geofencing.coordCentralLon,
-            },
-            radius: device.geofencing.radius,
-            walk: device.walkMode
-        }
+    const json = {
+      coords: {
+        lat: device.geofencing.coordCentralLat,
+        lng: device.geofencing.coordCentralLon,
+      },
+      radius: device.geofencing.radius,
+      walk: device.walkMode,
+    };
 
-        let data = await Data.create({
-            coords: {
-                lat: device.geofencing.coordCentralLat,
-                lon: device.geofencing.coordCentralLon,
-                timestamp: new Date()
-            },
-            device: device._id,
-            isWifi: true,
-            isGeofencing: true
-        })
+    let data = await Data.create({
+      coords: {
+        lat: device.geofencing.coordCentralLat,
+        lon: device.geofencing.coordCentralLon,
+        timestamp: new Date(),
+      },
+      device: device._id,
+      isWifi: true,
+      isGeofencing: true,
+    });
 
-        device.data.push(data)
-        await device.save()
-        /* for(let coords of coordsArray) {
+    device.data.push(data);
+    await device.save();
+    /* for(let coords of coordsArray) {
             var data = await Data.create({
                 coords,
                 device: device._id,
@@ -39,76 +39,79 @@ module.exports = {
         }
         await device.save() */
 
-        //  Socket.IO
-        const userSocket = req.connectedUsers[device.user]
-        console.log(userSocket)
-        if(userSocket) {
-            req.io.to(userSocket).emit('data', { data, battery })
-        }
-            
-        return res.status(200).send(json)
-    },
+    //  Socket.IO
+    const userSocket = req.connectedUsers[device.user];
+    console.log(userSocket);
+    if (userSocket) {
+      req.io.to(userSocket).emit('data', { data, battery });
+    }
 
-    async dataGPRS (req, res) {
-        const { id, lat, lng, battery, geofencing } = req.query
+    return res.status(200).send(json);
+  },
 
-        const device = await Device.findOneAndUpdate({ imei: id }, { battery })
+  async dataGPRS(req, res) {
+    const { id, lat, lng, battery, geofencing } = req.query;
 
-        const json = {
-            coords: {
-                lat: device.geofencing.coordCentralLat,
-                lng: device.geofencing.coordCentralLon,
-            },
-            radius: device.geofencing.radius,
-            walk: device.walkMode
-        }
+    const device = await Device.findOneAndUpdate({ imei: id }, { battery });
 
-        let coords = {
-            lat,
-            lon: lng,
-            timestamps: new Date()
-        }
-        var data = await Data.create({
-            coords,
-            device: device._id,
-            isWifi: false,
-            isGeofencing: geofencing
-        })
-        device.data.push(data)
-        await device.save()
+    const json = {
+      coords: {
+        lat: device.geofencing.coordCentralLat,
+        lng: device.geofencing.coordCentralLon,
+      },
+      radius: device.geofencing.radius,
+      walk: device.walkMode,
+    };
 
-        //  Socket.IO
-        const userSocket = req.connectedUsers[device.user]
-        console.log(userSocket)
-        if(userSocket) {
-            req.io.to(userSocket).emit('data', { data, battery })
-        }
+    let coords = {
+      lat,
+      lon: lng,
+      timestamps: new Date(),
+    };
+    var data = await Data.create({
+      coords,
+      device: device._id,
+      isWifi: false,
+      isGeofencing: geofencing,
+    });
+    device.data.push(data);
+    await device.save();
 
-        return res.status(200).send(json)
-    },
+    //  Socket.IO
+    const userSocket = req.connectedUsers[device.user];
+    console.log(userSocket);
+    if (userSocket) {
+      req.io.to(userSocket).emit('data', { data, battery });
+    }
 
-    async getDatas (req, res) {
-        const { device, time = 1 } = req.query
+    return res.status(200).send(json);
+  },
 
-        if(time == 0) {
-            const datas = await Data.find({ device }).sort({ createAt: -1 })
+  async getDatas(req, res) {
+    const { device, time = 1 } = req.query;
 
-            const { geofencing } = await Device.findById(device).select('geofencing')
+    if (time == 0) {
+      const datas = await Data.find({ device }).sort({ createAt: -1 });
 
-            return res.send({ datas, geofencing })
-        } else {
-            let timeAgo = time * 3600000
-            let timestamp = new Date(new Date() - timeAgo)
-    
-            const datas = await Data.find({ device,  createAt: { $gte: timestamp }}).sort({ createAt: -1 })
-            
-            const { geofencing } = await Device.findById(device).select('geofencing')
+      const { geofencing } = await Device.findById(device).select('geofencing');
 
-            return res.send({ datas, geofencing })
-        }
-    },
+      return res.send({ datas, geofencing });
+    } else {
+      let timeAgo = time * 3600000;
+      let timestamp = new Date(new Date() - timeAgo);
 
-    /* async getNeighborhoodDatas(req, res) { // Terminar isso
+      const datas = await Data.find({
+        device,
+        createAt: { $gte: timestamp },
+      }).sort({ createAt: -1 });
+
+      const { geofencing } = await Device.findById(device).select('geofencing');
+
+      return res.send({ datas, geofencing });
+    }
+  },
+
+  /* async getNeighborhoodDatas(req, res) { // Terminar isso
         const { device } = req.query
 
         const { coordCentral, radius } = await Device.findById({ device }).select('geofencing')
@@ -132,5 +135,4 @@ module.exports = {
             }
         })
     } */
-
-}
+};

@@ -1,49 +1,51 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const DeviceSchema = new mongoose.Schema({
-    data: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Data',
-    }],
-
-    imei: {
-        type: String,
-        required: true
-    }, 
-
-    walkMode: {
-        type: Boolean,
-        default: false,
+  data: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Data',
     },
+  ],
 
-    name: {
-        type: String,
-        required: true
-    },
+  imei: {
+    type: String,
+    required: true,
+  },
 
-    battery: {
-        type: String,
-        default: 'Ruim'
-    },
+  walkMode: {
+    type: Boolean,
+    default: false,
+  },
 
-    geofencing: {
-        coordCentralLat: Number,
-        coordCentralLon: Number,
-        radius: Number
-    },
+  name: {
+    type: String,
+    required: true,
+  },
 
-    cep: {
-        type: String
-    },
+  battery: {
+    type: String,
+    default: 'Ruim',
+  },
 
-    emergencialPhone: {
-        type: String
-    },
+  geofencing: {
+    coordCentralLat: Number,
+    coordCentralLon: Number,
+    radius: Number,
+  },
 
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-    }
-})
+  cep: {
+    type: String,
+  },
 
-module.exports = mongoose.model('Device', DeviceSchema)
+  emergencialPhone: {
+    type: String,
+  },
+
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+});
+
+module.exports = mongoose.model('Device', DeviceSchema);

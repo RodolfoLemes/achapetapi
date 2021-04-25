@@ -15,6 +15,7 @@
   "description": "api",
   "main": "src/index.js",
   "license": "MIT",
+  "author": "Rodolfo Lemes <rodolfo_fero@hotmail.com>",
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js"

@@ -1,11 +1,11 @@
-const express = require('express')
+const express = require('express');
 
-const DataController = require('../controllers/DataController')
+const DataController = require('../controllers/DataController');
 
-const routes = express.Router()
+const routes = express.Router();
 
 //Rotas para recebimento de coordenadas
-routes.get('/coordsWIFI', DataController.dataWifi)
-routes.get('/coordsGPRS', DataController.dataGPRS)
+routes.get('/coordsWIFI', DataController.dataWifi);
+routes.get('/coordsGPRS', DataController.dataGPRS);
 
-module.exports = routes
+module.exports = routes;
